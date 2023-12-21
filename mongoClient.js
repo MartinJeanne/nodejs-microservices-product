@@ -9,7 +9,7 @@ async function getCollection(collection) {
     try {
         await client.connect();
         console.log('Connected to mongoDB!');
-        const db = client.db('products');
+        const db = client.db('publication');
         return db.collection(collection);
     } catch (error) {
         console.error(error);
@@ -43,6 +43,9 @@ module.exports.getProduct = async (id) => {
 
 module.exports.PostProduct = async (product) => {
     const collection = await getCollection('products');
+
+    const date = new Date();
+    product.created_at = date.toUTCString();
 
     const inserted = await collection.insertOne(product);
     closeDB();
