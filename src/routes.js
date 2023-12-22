@@ -9,7 +9,6 @@ router.use(bodyParser.json({ extended: true }));
 
 //Get all Method (with search option)
 router.get('/products', async (req, res) => {
-    fs.writeFileSync('./test.txt', 'Error: ');
     res.send(await mongoClient.getProducts(req.query.name));
 });
 
