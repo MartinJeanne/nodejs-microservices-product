@@ -22,7 +22,18 @@ module.exports.getProducts = async (name) => {
 }
 
 module.exports.getProduct = async (id) => {
-    return await Product.findById(id);
+    const response = { status: 200, content: null };
+
+    await Product.findById(id).then(product => {
+        if (product == null) response.status = 204;
+        else response.content = product;
+    }).catch(error => {
+        console.error(error);
+        response.status = 400;
+        response.content = { error: error?.reason.toString() };
+    });
+
+    return response;
 }
 
 module.exports.postProduct = async (product) => {

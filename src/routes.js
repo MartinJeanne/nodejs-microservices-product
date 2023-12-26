@@ -26,5 +26,6 @@ router.get('/products/ip', async (req, res) => {
 
 //Get by ID Method
 router.get('/products/:id', async (req, res) => {
-    res.send(await mongoClient.get/Product(req.params.id));
+    const response = await mongoClient.getProduct(req.params.id)
+    res.status(response.status).send(response.content);
 });
